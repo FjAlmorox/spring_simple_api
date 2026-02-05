@@ -1,0 +1,21 @@
+{
+  "name": "Java 21 & Spring Boot",
+  "image": "mcr.microsoft.com/devcontainers/java:21-bullseye",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:1": {
+      "configureZshAsDefaultShell": true
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",      // Pack esencial (Language Support, Debugger, Maven, Gradle)
+        "vscjava.vscode-spring-boot-dashboard", // Panel para ver tus apps Spring corriendo
+        "vmware.vscode-spring-boot",    // Soporte inteligente para archivos .properties y .yml
+        "vscjava.vscode-java-test"       // Para correr tests con un click
+      ]
+    }
+  },
+  "forwardPorts": [8080], // Cambia esto si tu app usa otro puerto
+  "postCreateCommand": "java -version" 
+}
