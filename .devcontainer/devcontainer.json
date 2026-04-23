@@ -2,22 +2,21 @@
   "name": "Spring Boot (Java 21)",
   "image": "mcr.microsoft.com/devcontainers/java:21-bullseye",
   
-  // Características adicionales de la comunidad
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
       "version": "21",
-      "installMaven": "true", // Cambia a "false" y activa installGradle si usas Gradle
+      "installMaven": "true",
       "installGradle": "false"
     },
-    // Añade el CLI de GitHub para gestionar PRs desde el terminal
+    // Opcional, dejo añadido el CLI de GitHub para gestionar PRs desde el terminal (Creo que no lo necesitaremos)
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
 
-  // Personalización del IDE (VS Code en el navegador)
+  // Parte de personalización del IDE (VS Code en el navegador), OJO! no todo me ha funcionado 100% (pero te pide lo que necesita y reinicias el VS Code)
   "customizations": {
     "vscode": {
       "settings": {
-        "java.format.settings.url": "eclipse-formatter.xml", // Opcional: si tienes un archivo de estilo
+        "java.format.settings.url": "eclipse-formatter.xml",
         "java.configuration.updateBuildConfiguration": "automatic"
       },
       "extensions": [
@@ -30,14 +29,13 @@
     }
   },
 
-  // Comando a ejecutar nada más crear el entorno para descargar dependencias
-  // Esto hace que el "Prebuild" de Codespaces sea súper útil.
-  "updateContentCommand": "mvn dependency:go-offline", // Cambia a "gradlew dependencies" si usas Gradle
+  // Comando a ejecutar nada más crear el entorno para descargar dependencias, hace que el "Prebuild" de Codespaces sea útil. Hay que mirar los costes que implica
+  "updateContentCommand": "mvn dependency:go-offline",
 
-  // Comando que se ejecuta una vez que el entorno ya está levantado
+  // Comando que se ejecuta una vez que el entorno ya está levantado, esto es po confirmar en la consola la versión de Java, igual es útil para los usuarios (revisar)...
   "postCreateCommand": "java -version",
 
-  // Compartir los puertos donde levantará Spring Boot (8080)
+  // Compartir los puertos donde levantará Spring Boot (8080), hay un panel en la parte del terminal donde se ve al levantarse la app y se puede ir a la url
   "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
@@ -45,6 +43,6 @@
       "onAutoForward": "notify"
     }
   },
-
+  // No estoy seguro de que sea necesario, pero lo pongo por que en el ejemplo lo tenían (probar cmabio o quitarlo)
   "remoteUser": "vscode"
 }
