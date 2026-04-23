@@ -1,21 +1,50 @@
 {
-  "name": "Java 21 & Spring Boot",
+  "name": "Spring Boot (Java 21)",
   "image": "mcr.microsoft.com/devcontainers/java:21-bullseye",
+  
+  // Características adicionales de la comunidad
   "features": {
-    "ghcr.io/devcontainers/features/common-utils:1": {
-      "configureZshAsDefaultShell": true
-    }
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21",
+      "installMaven": "true", // Cambia a "false" y activa installGradle si usas Gradle
+      "installGradle": "false"
+    },
+    // Añade el CLI de GitHub para gestionar PRs desde el terminal
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
+
+  // Personalización del IDE (VS Code en el navegador)
   "customizations": {
     "vscode": {
+      "settings": {
+        "java.format.settings.url": "eclipse-formatter.xml", // Opcional: si tienes un archivo de estilo
+        "java.configuration.updateBuildConfiguration": "automatic"
+      },
       "extensions": [
-        "vscjava.vscode-java-pack",      // Pack esencial (Language Support, Debugger, Maven, Gradle)
-        "vscjava.vscode-spring-boot-dashboard", // Panel para ver tus apps Spring corriendo
-        "vmware.vscode-spring-boot",    // Soporte inteligente para archivos .properties y .yml
-        "vscjava.vscode-java-test"       // Para correr tests con un click
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-lombok",
+        "redhat.vscode-xml",
+        "Pivotal.vscode-boot-dev-pack"
       ]
     }
   },
-  "forwardPorts": [8080], // Cambia esto si tu app usa otro puerto
-  "postCreateCommand": "java -version" 
+
+  // Comando a ejecutar nada más crear el entorno para descargar dependencias
+  // Esto hace que el "Prebuild" de Codespaces sea súper útil.
+  "updateContentCommand": "mvn dependency:go-offline", // Cambia a "gradlew dependencies" si usas Gradle
+
+  // Comando que se ejecuta una vez que el entorno ya está levantado
+  "postCreateCommand": "java -version",
+
+  // Compartir los puertos donde levantará Spring Boot (8080)
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Spring Boot App",
+      "onAutoForward": "notify"
+    }
+  },
+
+  "remoteUser": "vscode"
 }
