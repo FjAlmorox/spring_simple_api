@@ -9,7 +9,11 @@
       "installGradle": "false"
     },
     // Opcional, dejo añadido el CLI de GitHub para gestionar PRs desde el terminal (Creo que no lo necesitaremos)
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "enableNonRootDocker": "true",
+      "moby": "true"
+    }
   },
 
   // Parte de personalización del IDE (VS Code en el navegador), OJO! no todo me ha funcionado 100% (pero te pide lo que necesita y reinicias el VS Code)
@@ -24,6 +28,7 @@
         "vmware.vscode-spring-boot",
         "vscjava.vscode-lombok",
         "redhat.vscode-xml",
+        "ms-azuretools.vscode-docker",
         "Pivotal.vscode-boot-dev-pack"
       ]
     }
